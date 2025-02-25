@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://haochen.dev/sitemap.xml
+Host: https://haochen.dev

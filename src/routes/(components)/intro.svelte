@@ -29,9 +29,65 @@
 </div>
 
 <div class="flex w-full flex-col items-center justify-between gap-2 leading-7">
-	<p class="w-full">
-		I am a student based in Singagpore, aspring to become a software developer. I am passionate
-		about building creative and interactive web applications. Outside of programming, I enjoy making
-		3D experiences and photography.
+	<p class="highlight-paragraph w-full">
+		I am a <span class="highlight-text">student </span> based
+		<span class="highlight-text"> in Singapore</span>,
+		<span class="highlight-text">aspiring </span> to become a
+		<span class="highlight-text">software developer</span>. I am passionate about building
+		<span class="highlight-text">creative and interactive web applications</span>. Outside of
+		programming, I enjoy making 3D experiences and photography.
 	</p>
 </div>
+
+<style>
+	.highlight-paragraph {
+		transition: color 0.3s ease-in-out;
+	}
+
+	.highlight-paragraph:hover {
+		color: hsl(var(--muted-foreground) / 0.5);
+	}
+
+	.highlight-text {
+		position: relative;
+		display: inline-block;
+		transition: color 0.3s ease-in-out;
+	}
+
+	.highlight-paragraph:hover .highlight-text {
+		color: hsl(var(--accent-foreground)) !important;
+	}
+
+	.highlight-text::after {
+		content: '';
+		position: absolute;
+		left: -2px;
+		bottom: 1px;
+		width: calc(100% + 4px);
+		height: 0;
+		background-color: white;
+		transition: height 0.3s ease-in-out;
+		z-index: 5;
+		mix-blend-mode: difference;
+	}
+
+	.highlight-text:nth-child(1)::after {
+		transition-delay: 0s;
+	}
+	.highlight-text:nth-child(2)::after {
+		transition-delay: 0.05s;
+	}
+	.highlight-text:nth-child(3)::after {
+		transition-delay: 0.1s;
+	}
+	.highlight-text:nth-child(4)::after {
+		transition-delay: 0.15s;
+	}
+	.highlight-text:nth-child(5)::after {
+		transition-delay: 0.2s;
+	}
+
+	.highlight-paragraph:hover .highlight-text::after {
+		height: 86%;
+	}
+</style>

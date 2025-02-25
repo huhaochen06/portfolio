@@ -11,21 +11,6 @@
 	const { PostContent, previousProject, nextProject } = data;
 </script>
 
-<svelte:head>
-	<!-- Be sure to add your image files and un-comment the lines below -->
-	<title>{name}</title>
-	<meta data-key="description" name="description" content={description} />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={name} />
-	<meta name="twitter:title" content={name} />
-	<meta property="og:description" content={description} />
-	<meta name="twitter:description" content={description} />
-	<!-- <meta property="og:image" content="https://yourdomain.com/image_path" /> -->
-	<!-- <meta property="og:image:width" content={preview.base.width} />
-	<meta property="og:image:height" content={preview.base.height} /> -->
-	<!-- <meta name="twitter:image" content="https://yourdomain.com/image_path" /> -->
-</svelte:head>
-
 <main
 	class="relative flex w-full items-start justify-center px-4 pb-28 pt-16 sm:items-center sm:px-8 sm:pt-8 lg:items-start lg:pb-16 lg:pt-[9.6875rem] xl:px-0"
 >
@@ -51,11 +36,7 @@
 						{name}
 					</h1>
 					<p class="text-sm text-neutral-500">
-						{new Date(date).toLocaleDateString('en-US', {
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric'
-						})}
+						{date}
 					</p>
 				</div>
 				<div class="flex items-center justify-end">
@@ -101,7 +82,9 @@
 			</div>
 			{#if PostContent}
 				<Separator />
-				<div class="prose prose-neutral w-full dark:prose-invert">
+				<div
+					class="prose prose-neutral w-full dark:prose-invert prose-figcaption:text-center prose-img:rounded-lg prose-img:border"
+				>
 					<PostContent />
 				</div>
 			{/if}

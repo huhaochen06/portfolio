@@ -58,7 +58,7 @@
 	<div
 		bind:this={containerRef}
 		role="presentation"
-		class="relative grid w-full cursor-none select-none grid-cols-4 grid-rows-2 gap-2 overflow-hidden pb-2"
+		class="relative mb-2 grid w-full cursor-none select-none grid-cols-4 grid-rows-2 gap-2 overflow-hidden"
 		onmousemove={handleMouseMove}
 		onmouseenter={onFirstEnter}
 		onmouseleave={onFirstLeave}
@@ -86,8 +86,8 @@
 
 	<div
 		class={cn(
-			'absolute -bottom-7 left-0 right-0 flex h-8 items-center justify-between opacity-0 blur-sm transition-all duration-300 peer-focus:opacity-100 peer-focus:blur-0',
-			game.state.gameStarted ? 'opacity-100 blur-0' : ''
+			'absolute -bottom-7 left-0 right-0 flex h-8 items-center justify-between  transition-all duration-300',
+			game.state.gameStarted ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'
 		)}
 	>
 		<div

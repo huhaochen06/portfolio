@@ -1,22 +1,3 @@
+This personal website serves as a showcase of my work and technical skills. While I'm satisfied with its current state, I see it as an ongoing project that will grow and adapt with my professional development.
 
-Here are some headings:
-
-## Here's an h2
-
-Lorem ipsum dolor sit amet
-
-### This is an h3
-
-Lorem ipsum dolor sit amet
-
-#### As you've probably guessed, this is an h4
-
-Lorem ipsum dolor sit amet
-
-##### This, of course, is an h5
-
-Lorem ipsum dolor sit amet
-
-###### We're deep in h6 territory now
-
-Lorem ipsum dolor sit amet
+The site embraces minimalist design principles while incorporating subtle interactive elements that enhance user engagement. A playful mini-game in the technologies section adds an interactive dimension to the experience. [Think you can master it?](/)

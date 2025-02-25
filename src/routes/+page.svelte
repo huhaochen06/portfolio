@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Separator } from '$lib/components/ui/separator';
+	import Contact from './(components)/contact.svelte';
 	import Interactivity from './(components)/interactivity.svelte';
 	import Intro from './(components)/intro.svelte';
 	import Projects from './(components)/projects.svelte';
@@ -18,5 +19,7 @@
 		<Projects />
 		<Separator />
 		<Interactivity />
+		<Separator />
+		<Contact />
 	</div>
 </div>

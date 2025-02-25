@@ -6,7 +6,7 @@ export const projects = [
 		type: 'internal',
 		href: {
 			url: 'https://qibaodian.net',
-			type: 'codepen'
+			type: 'external'
 		},
 		preview: {
 			base: {
@@ -14,10 +14,11 @@ export const projects = [
 				width: 550,
 				height: 333,
 				src: 'https://cdn.haochen.dev/qibaodian.mp4',
-				placeholder: 'https://cdn.haochen.dev/qibaodian-placeholder.png'
+				placeholder:
+					'https://cdn.haochen.dev/cdn-cgi/image/fit=contain,format=webp,width=400/qibaodian-placeholder.png'
 			}
 		},
-		date: '2024-07-22',
+		date: 'Ongoing',
 		technologies: [
 			'HTML',
 			'CSS',
@@ -27,30 +28,29 @@ export const projects = [
 			'Redis',
 			'BullMQ',
 			'Docker'
-		],
-		attributes: null
+		]
 	},
 	{
 		slug: 'portfolio',
 		name: 'haochen.dev',
-		description: 'My personal portfolio website.',
+		description: 'My personal portfolio website, sprinkled with some fun interactions.',
 		type: 'internal',
 		href: {
-			url: 'https://haochen.dev',
-			type: 'codepen'
+			url: 'https://github.com/huhaochen06/haochen.dev',
+			type: 'github'
 		},
 		preview: {
 			base: {
 				type: 'video',
-				width: 1750,
-				height: 1285,
-				src: '',
-				placeholder: 'https://cdn.haochen.dev/portfolio-placeholder.png'
+				width: 931,
+				height: 1230,
+				src: 'https://cdn.haochen.dev/portfolio.mp4',
+				placeholder:
+					'https://cdn.haochen.dev/cdn-cgi/image/fit=contain,format=webp,width=400/portfolio-placeholder.png'
 			}
 		},
-		date: '2024-07-22',
-		technologies: ['TypeScript', 'SvelteKit'],
-		attributes: null
+		date: 'Feb 2025',
+		technologies: ['TypeScript', 'SvelteKit']
 	},
 	{
 		slug: 'njcso-tracker',
@@ -58,8 +58,8 @@ export const projects = [
 		description: 'A web app to track instruments in the NJCSO.',
 		type: 'internal',
 		href: {
-			url: 'https://njc-tracker.haochen.dev/',
-			type: 'production'
+			url: 'https://github.com/huhaochen06/njcso-tracker',
+			type: 'github'
 		},
 		preview: {
 			base: {
@@ -67,55 +67,55 @@ export const projects = [
 				width: 354,
 				height: 768,
 				src: 'https://cdn.haochen.dev/njcso-tracker.mp4',
-				placeholder: 'https://cdn.haochen.dev/njcso-tracker-placeholder.png'
+				placeholder:
+					'https://cdn.haochen.dev/cdn-cgi/image/fit=contain,format=webp,width=400/njcso-tracker-placeholder.png'
 			}
 		},
-		date: '2022-01-15',
-		technologies: ['Sveltekit', 'XState', 'GSAP'],
-		attributes: null
+		date: 'Feb 2024',
+		technologies: ['Sveltekit', 'XState', 'GSAP', 'Google Sheets API']
 	},
 	{
 		slug: 'ecoquest',
 		name: 'ecoQuest',
-		description: 'A web app to track instruments in the NJCSO.',
+		description: 'A mobile app built with Expo and React Native for BrainHack 2024.',
 		type: 'internal',
 		href: {
-			url: 'https://njc-tracker.haochen.dev/',
-			type: 'production'
+			url: 'https://github.com/Brainhack-please-no/ecoQuest-frontend',
+			type: 'github'
 		},
 		preview: {
 			base: {
 				type: 'video',
-				width: 354,
-				height: 768,
-				src: '',
-				placeholder: 'https://cdn.haochen.dev/njcso-tracker-placeholder.png'
+				width: 557,
+				height: 854,
+				src: 'https://cdn.haochen.dev/ecoquest.mp4',
+				placeholder:
+					'https://cdn.haochen.dev/cdn-cgi/image/fit=contain,format=webp,width=400/ecoquest-placeholder.png'
 			}
 		},
-		date: '2022-01-15',
-		technologies: ['Sveltekit', 'XState', 'GSAP'],
-		attributes: null
+		date: 'June 2024',
+		technologies: ['Expo', 'React Native', 'TypeScript', 'Flask', 'Python', 'SQLite']
 	},
 	{
 		slug: 'crayon-box-tournament',
 		name: 'Cranyon Box Tournament',
-		description: 'My personal portfolio website.',
+		description: "A 2D platformer game built with Godot for Hack'n'Roll 2024.",
 		type: 'internal',
 		href: {
-			url: 'https://haochen.dev',
-			type: 'codepen'
+			url: 'https://github.com/huhaochen06/Crayon-Box-Tournament',
+			type: 'github'
 		},
 		preview: {
 			base: {
 				type: 'video',
-				width: 1750,
-				height: 1285,
-				src: '',
-				placeholder: 'https://cdn.haochen.dev/portfolio-placeholder.png'
+				width: 560,
+				height: 458,
+				src: 'https://cdn.haochen.dev/crayon-box-tournament.mp4',
+				placeholder:
+					'https://cdn.haochen.dev/cdn-cgi/image/fit=contain,format=webp,width=400/crayon-box-tournament-placeholder.png'
 			}
 		},
-		date: '2024-07-22',
-		technologies: ['TypeScript', 'SvelteKit'],
-		attributes: null
+		date: 'Jan 2024',
+		technologies: ['Godot', 'GDScript']
 	}
 ];

@@ -41,9 +41,9 @@
 				class="!bottom-0 !left-0 !right-0 !top-auto !w-full !translate-x-0 translate-y-20 opacity-0 transition-transform group-hover:translate-y-0 group-hover:opacity-100"
 			/>
 			<img
-				src="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=480/{image.name}"
-				srcset="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=960/{image.name} 2x,
-                https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=1440/{image.name} 3x"
+				src="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=480,format=webp/{image.name}"
+				srcset="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=960,format=webp/{image.name} 2x,
+                https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=1440,format=webp/{image.name} 3x"
 				alt={`${image.name}`}
 				class="h-full w-full bg-muted object-cover"
 				style="aspect-ratio: {image.width} / {image.height}"

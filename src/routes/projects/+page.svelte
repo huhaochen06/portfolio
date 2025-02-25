@@ -12,7 +12,7 @@
 
 		<Masonry objects={projects}>
 			{#snippet children(project: any)}
-				<ProjectPreview {project} class="grid-item w-full "></ProjectPreview>
+				<ProjectPreview {project} class="grid-item w-full" />
 			{/snippet}
 		</Masonry>
 	</div>

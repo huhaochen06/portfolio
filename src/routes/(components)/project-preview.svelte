@@ -14,6 +14,16 @@
 	let externalIcon = $derived.by(() => !(project.type === 'internal' || project.mdx));
 
 	const { placeholder, src } = preview.base;
+
+	let videoElement = $state();
+	let isLoaded = $state(false);
+
+	$effect(() => {
+		if (videoElement?.readyState >= 3) {
+			// HAVE_FUTURE_DATA
+			isLoaded = true;
+		}
+	});
 </script>
 
 <a
@@ -31,6 +41,7 @@
 			style="aspect-ratio: {resolution.width} / {resolution.height}"
 		>
 			<video
+				bind:this={videoElement}
 				autoplay
 				muted
 				playsinline
@@ -38,8 +49,14 @@
 				{src}
 				width={resolution.width}
 				height={resolution.height}
-				class="relative z-20 h-auto w-full"
+				class={cn(
+					'relative z-20 h-auto w-full object-cover object-top transition-opacity duration-100',
+					isLoaded ? 'opacity-100' : 'opacity-0'
+				)}
 				style="aspect-ratio: {resolution.width} / {resolution.height}"
+				onloadeddata={() => {
+					isLoaded = true;
+				}}
 			></video>
 			<div
 				class="absolute left-0 top-0 z-10 h-full w-full bg-cover bg-no-repeat blur-lg"
@@ -60,13 +77,12 @@
 							{/if}
 						</div>
 						<p class="z-40 text-xs text-neutral-400 sm:text-sm">
-							{new Date(date).toLocaleDateString('en-US', {
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric'
-							})}
+							{date}
 						</p>
 					</div>
+					<div
+						class="absolute bottom-0 z-10 h-20 w-full bg-gradient-to-t from-black/90 from-0% via-black/40 via-50% to-transparent to-100%"
+					></div>
 					<BlurEffect direction="down" class="!top-auto bottom-0 z-10" />
 				</div>
 			{/if}

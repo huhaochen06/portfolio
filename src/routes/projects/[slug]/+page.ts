@@ -1,7 +1,8 @@
 import { projects } from '$lib/data/projects/projects.js';
 import { error } from '@sveltejs/kit';
 
-export const load = async ({ params }) => {
+export const load = async ({ params, parent }) => {
+	const { title } = await parent();
 	let post;
 	try {
 		post = await import(`../../../lib/data/projects/${params.slug}.md`);
@@ -20,6 +21,10 @@ export const load = async ({ params }) => {
 	}
 
 	return {
+		title: meta.name + ' | ' + title,
+		description: meta.description,
+		imageURL: meta.preview.base.placeholder,
+		type: 'article',
 		PostContent: post.default,
 		meta,
 		previousProject,

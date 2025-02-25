@@ -11,7 +11,7 @@
 			<FolderKanban class="size-4" />
 			<h2 class="font-medium">Recent Projects</h2>
 		</div>
-		<Button href="/projects" variant="link">more projects →</Button>
+		<Button href="/projects" variant="link">More Projects →</Button>
 	</div>
 
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">

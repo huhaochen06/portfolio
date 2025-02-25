@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { BlurEffect } from '../blur-effect';
 	import MainNav from './main-nav.svelte';
 	import ThemeControl from './theme-control.svelte';
@@ -9,5 +10,7 @@
 >
 	<MainNav />
 	<ThemeControl />
-	<BlurEffect />
+	{#if page.url.pathname !== '/gallery'}
+		<BlurEffect />
+	{/if}
 </nav>

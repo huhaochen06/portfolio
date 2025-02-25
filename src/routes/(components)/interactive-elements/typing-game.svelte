@@ -133,7 +133,7 @@
 	</div>
 
 	<input
-		class="focus-visible:outline-hidden peer mt-[8px] flex h-10 w-full rounded-md border-[3px] border-black bg-background px-3 py-7 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-100 dark:border-primary/15 dark:bg-muted sm:text-base md:text-sm"
+		class="peer mt-[8px] flex h-10 w-full rounded-md border-[3px] border-black bg-background px-3 py-7 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-100 dark:border-primary/15 dark:bg-muted sm:text-base md:text-sm"
 		{placeholder}
 		value={input}
 		oninput={handleInput}
