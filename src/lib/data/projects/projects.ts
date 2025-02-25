@@ -58,7 +58,7 @@ export const projects = [
 		description: 'A web app to track instruments in the NJCSO.',
 		type: 'internal',
 		href: {
-			url: 'https://njcso-tracker.haochen.dev/',
+			url: 'https://njc-tracker.haochen.dev/',
 			type: 'production'
 		},
 		preview: {
@@ -80,7 +80,7 @@ export const projects = [
 		description: 'A web app to track instruments in the NJCSO.',
 		type: 'internal',
 		href: {
-			url: 'https://njcso-tracker.haochen.dev/',
+			url: 'https://njc-tracker.haochen.dev/',
 			type: 'production'
 		},
 		preview: {

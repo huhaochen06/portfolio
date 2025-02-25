@@ -1,14 +1,8 @@
 <script lang="ts">
 	import * as Carousel from '$lib/components/ui/carousel';
-	import { type CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import { cn } from '$lib/utils';
 
 	let { class: className = '' } = $props();
-
-	// State for dates and rotation
-	let api = $state<CarouselAPI>();
-	let current = $state(0);
-	let dates = $state(generateDates());
 
 	function generateDates(days = 14) {
 		const result = [];
@@ -28,145 +22,100 @@
 		return result;
 	}
 
-	const CIRCLE_DEGREES = 360;
-	const WHEEL_ITEM_SIZE = 32;
-	const WHEEL_ITEM_COUNT = 18;
-	const WHEEL_ITEMS_IN_VIEW = 4;
-
-	export const WHEEL_ITEM_RADIUS = CIRCLE_DEGREES / WHEEL_ITEM_COUNT;
-	export const IN_VIEW_DEGREES = WHEEL_ITEM_RADIUS * WHEEL_ITEMS_IN_VIEW;
-	export const WHEEL_RADIUS = Math.round(
-		WHEEL_ITEM_SIZE / 2 / Math.tan(Math.PI / WHEEL_ITEM_COUNT)
-	);
-
-	const isInView = (wheelLocation: number, slidePosition: number): boolean =>
-		Math.abs(wheelLocation - slidePosition) < IN_VIEW_DEGREES;
-
-	const setSlideStyles = (
-		emblaApi: CarouselAPI,
-		index: number,
-		loop: boolean,
-		slideCount: number,
-		totalRadius: number
-	): void => {
-		const slideNode = emblaApi.slideNodes()[index];
-		const wheelLocation = emblaApi.scrollProgress() * totalRadius;
-		const positionDefault = emblaApi.scrollSnapList()[index] * totalRadius;
-		const positionLoopStart = positionDefault + totalRadius;
-		const positionLoopEnd = positionDefault - totalRadius;
-
-		let inView = false;
-		let angle = index * -WHEEL_ITEM_RADIUS;
-
-		if (isInView(wheelLocation, positionDefault)) {
-			inView = true;
-		}
-
-		if (loop && isInView(wheelLocation, positionLoopEnd)) {
-			inView = true;
-			angle = -CIRCLE_DEGREES + (slideCount - index) * WHEEL_ITEM_RADIUS;
-		}
-
-		if (loop && isInView(wheelLocation, positionLoopStart)) {
-			inView = true;
-			angle = -(totalRadius % CIRCLE_DEGREES) - index * WHEEL_ITEM_RADIUS;
-		}
-
-		if (inView) {
-			slideNode.style.opacity = '1';
-			slideNode.style.transform = `translateY(-${
-				index * 100
-			}%) rotateX(${angle}deg) translateZ(${WHEEL_RADIUS}px)`;
-		} else {
-			slideNode.style.opacity = '0';
-			slideNode.style.transform = 'none';
-		}
-	};
-
-	export const setContainerStyles = (emblaApi: CarouselAPI, wheelRotation: number): void => {
-		emblaApi.containerNode().style.transform = `translateZ(${WHEEL_RADIUS}px) rotateX(${wheelRotation}deg)`;
-	};
-
-	function inactivateEmblaTransform(emblaApi: CarouselAPI) {
-		if (!emblaApi) return;
-		const { translate, slideLooper } = emblaApi.internalEngine();
-		translate.clear();
-		translate.toggleActive(false);
-		slideLooper.loopPoints.forEach(({ translate }) => {
-			translate.clear();
-			translate.toggleActive(false);
-		});
-	}
-
-	function rotateWheel(emblaApi: CarouselAPI) {
-		const rotation = dates.length * WHEEL_ITEM_RADIUS - rotationOffset;
-		const wheelRotation = rotation * emblaApi.scrollProgress();
-		setContainerStyles(emblaApi, wheelRotation);
-		emblaApi.slideNodes().forEach((_, index) => {
-			setSlideStyles(emblaApi, index, false, dates.length, totalRadius);
-		});
-	}
-
-	$effect(() => {
-		if (!api) return;
-
-		api.on('pointerUp', (emblaApi) => {
-			const { scrollTo, target, location } = emblaApi.internalEngine();
-			const diffToTarget = target.get() - location.get();
-			const factor = Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1;
-			const distance = diffToTarget * factor;
-			scrollTo.distance(distance, true);
-		});
-
-		api.on('scroll', rotateWheel);
-
-		api.on('reInit', (emblaApi) => {
-			inactivateEmblaTransform(emblaApi);
-			rotateWheel(emblaApi);
-		});
-
-		inactivateEmblaTransform(api);
-		rotateWheel(api);
-
-		// Previous effect for current selection
-		current = api.selectedScrollSnap() + 1;
-		api.on('select', () => {
-			current = api!.selectedScrollSnap() + 1;
-		});
-	});
-
-	const totalRadius = dates.length * WHEEL_ITEM_RADIUS;
-	const rotationOffset = WHEEL_ITEM_RADIUS;
+	let dates = $derived(generateDates());
+	let currentDate = $derived(new Date());
 </script>
 
-<Carousel.Root
-	class={cn('relative w-full select-none items-center  overflow-hidden', className)}
-	setApi={(emblaApi) => (api = emblaApi)}
-	opts={{
-		dragFree: true,
-		containScroll: false,
-		watchSlides: false
-	}}
-	style="perspective: 1000px;"
->
-	<Carousel.Content
-		class="h-full w-full"
-		style="transform-style: preserve-3d; will-change: transform;"
+<div class={cn('embla overflow-hidden', className)}>
+	<Carousel.Root
+		class="flex h-full min-w-full touch-pan-y items-center overflow-hidden"
+		opts={{ loop: true, dragFree: true, startIndex: 7 }}
 	>
-		{#each dates as date, i}
-			<Carousel.Item class="min-w-max  basis-1/3" style="backface-visibility: hidden; opacity: 0;">
-				<div
-					class={cn(
-						'flex flex-col items-center justify-center rounded-xl bg-white/10 p-4 backdrop-blur-sm',
-						'border border-white/20 shadow-lg transition-all duration-300',
-						current === i && 'scale-110 bg-white/20'
-					)}
-				>
-					<span class="text-sm font-medium text-white/80">{date.dayName}</span>
-					<span class="text-2xl font-bold text-white">{date.dayNumber}</span>
-					<span class="text-sm font-medium text-white/80">{date.monthName}</span>
-				</div>
-			</Carousel.Item>
-		{/each}
-	</Carousel.Content>
-</Carousel.Root>
+		<Carousel.Content class="select-none">
+			{#each dates as date, index (index)}
+				<Carousel.Item class="basis-1/4  pt-4">
+					<div class="relative overflow-hidden rounded-t-md">
+						<div
+							class={cn(
+								'relative flex h-full w-full items-center justify-center rounded-t-md border-x border-t pb-2 pt-2 text-center text-neutral-500 after:bg-background dark:text-neutral-400',
+								date.dayNumber === currentDate.getDate() &&
+									'current-date text-neutral-950 [text-shadow:_0_0_1.25rem_rgba(10,10,10,1)] dark:text-neutral-50 dark:[text-shadow:0_0_0.75rem_rgba(250,250,250,1)]'
+							)}
+						>
+							<div class="z-30 flex">
+								<div class="flex flex-col items-center justify-center gap-2">
+									<span class="font-mono text-2xl">{date.dayNumber}</span>
+									<span class="font-mono">{date.dayName}</span>
+								</div>
+							</div>
+						</div>
+						{#if date.dayNumber === currentDate.getDate()}
+							<div
+								class={cn(
+									'absolute left-0 top-[90%] z-10 h-16 w-16 bg-gradient-to-r from-transparent via-black/30 to-transparent blur-lg transition-all duration-700 dark:top-[80%] dark:via-white/60'
+								)}
+							></div>
+							<div
+								class={cn(
+									'absolute right-0 top-[5%] h-16 w-16 bg-gradient-to-r from-transparent via-black to-transparent blur-lg transition-all duration-700 dark:via-white'
+								)}
+							></div>
+							<div
+								class={cn(
+									'absolute left-0 top-[60%] h-16 w-16 bg-gradient-to-r from-transparent via-black to-transparent blur-lg transition-all duration-700 dark:via-white'
+								)}
+							></div>
+						{/if}
+					</div>
+				</Carousel.Item>
+			{/each}
+		</Carousel.Content>
+	</Carousel.Root>
+</div>
+
+<style>
+	.embla {
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+	.embla:before,
+	.embla:after {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		content: '';
+		display: block;
+		width: calc(50% - 100px / 2);
+		z-index: 1;
+		pointer-events: none;
+	}
+	.embla:before {
+		left: -0.5px;
+		background: linear-gradient(
+			to left,
+			hsl(var(--background) / 0) 20%,
+			hsl(var(--background) / 1) 100%
+		);
+	}
+	.embla:after {
+		right: -0.5px;
+		background: linear-gradient(
+			to right,
+			hsl(var(--background) / 0) 20%,
+			hsl(var(--background) / 1) 100%
+		);
+	}
+
+	.current-date::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 0.35rem 0.35rem 0 0;
+		pointer-events: none;
+		z-index: 1;
+	}
+</style>

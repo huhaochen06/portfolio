@@ -98,7 +98,6 @@
 	}
 
 	function setImageIndex() {
-		console.log(last_index);
 		if (last_index == 1) {
 			active_index = 2;
 			last_index = 2;

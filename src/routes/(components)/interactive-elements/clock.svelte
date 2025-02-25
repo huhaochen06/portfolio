@@ -1,18 +1,28 @@
 <script lang="ts">
-	import * as Carousel from '$lib/components/ui/carousel';
-	import { type CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import { cn } from '$lib/utils';
+	import type { EmblaCarouselType } from 'embla-carousel';
+	import EmblaCarousel from 'embla-carousel';
+	import { onMount } from 'svelte';
 
-	let api = $state<CarouselAPI>();
-	let time = $state(new Date());
 	let { class: className = '' } = $props();
+
+	const circleDegrees = 360;
+	const wheelItemSize = 32;
+	const wheelItemCount = 12;
+	const wheelItemsInView = 3;
+	const loop = true;
+
+	let time = $state(new Date());
 
 	// Define time zones
 	const timeZones = [
 		{ code: 'SGT', name: 'Singapore', zone: 'Asia/Singapore' },
 		{ code: 'PST', name: 'Pacific', zone: 'America/Los_Angeles' },
 		{ code: 'EST', name: 'Eastern', zone: 'America/New_York' },
-		{ code: 'GMT', name: 'London', zone: 'Europe/London' }
+		{ code: 'GMT', name: 'London', zone: 'Europe/London' },
+		{ code: 'CET', name: 'Paris', zone: 'Europe/Paris' },
+		{ code: 'CST', name: 'Beijing', zone: 'Asia/Shanghai' },
+		{ code: 'JST', name: 'Tokyo', zone: 'Asia/Tokyo' }
 	];
 
 	// Update time every second
@@ -66,27 +76,28 @@
 		}))
 	);
 
-	const CIRCLE_DEGREES = 360;
-	const WHEEL_ITEM_SIZE = 32;
-	const WHEEL_ITEM_COUNT = 18;
-	const WHEEL_ITEMS_IN_VIEW = 4;
+	const WHEEL_ITEM_RADIUS = circleDegrees / wheelItemCount;
+	const IN_VIEW_DEGREES = WHEEL_ITEM_RADIUS * wheelItemsInView;
+	const WHEEL_RADIUS = Math.round(wheelItemSize / 2 / Math.tan(Math.PI / wheelItemCount));
 
-	export const WHEEL_ITEM_RADIUS = CIRCLE_DEGREES / WHEEL_ITEM_COUNT;
-	export const IN_VIEW_DEGREES = WHEEL_ITEM_RADIUS * WHEEL_ITEMS_IN_VIEW;
-	export const WHEEL_RADIUS = Math.round(
-		WHEEL_ITEM_SIZE / 2 / Math.tan(Math.PI / WHEEL_ITEM_COUNT)
-	);
+	// State
+	let emblaNode: HTMLElement;
+	let emblaApi: EmblaCarouselType;
+	let rootNode: HTMLElement;
+	const totalRadius = $derived(formattedTimes.length * WHEEL_ITEM_RADIUS);
+	const rotationOffset = loop ? 0 : WHEEL_ITEM_RADIUS;
 
-	const isInView = (wheelLocation: number, slidePosition: number): boolean =>
-		Math.abs(wheelLocation - slidePosition) < IN_VIEW_DEGREES;
+	function isInView(wheelLocation: number, slidePosition: number): boolean {
+		return Math.abs(wheelLocation - slidePosition) < IN_VIEW_DEGREES;
+	}
 
-	const setSlideStyles = (
-		emblaApi: CarouselAPI,
+	function setSlideStyles(
+		emblaApi: EmblaCarouselType,
 		index: number,
 		loop: boolean,
 		slideCount: number,
 		totalRadius: number
-	): void => {
+	): void {
 		const slideNode = emblaApi.slideNodes()[index];
 		const wheelLocation = emblaApi.scrollProgress() * totalRadius;
 		const positionDefault = emblaApi.scrollSnapList()[index] * totalRadius;
@@ -102,12 +113,12 @@
 
 		if (loop && isInView(wheelLocation, positionLoopEnd)) {
 			inView = true;
-			angle = -CIRCLE_DEGREES + (slideCount - index) * WHEEL_ITEM_RADIUS;
+			angle = -circleDegrees + (slideCount - index) * WHEEL_ITEM_RADIUS;
 		}
 
 		if (loop && isInView(wheelLocation, positionLoopStart)) {
 			inView = true;
-			angle = -(totalRadius % CIRCLE_DEGREES) - index * WHEEL_ITEM_RADIUS;
+			angle = -(totalRadius % circleDegrees) - index * WHEEL_ITEM_RADIUS;
 		}
 
 		if (inView) {
@@ -119,13 +130,13 @@
 			slideNode.style.opacity = '0';
 			slideNode.style.transform = 'none';
 		}
-	};
+	}
 
-	export const setContainerStyles = (emblaApi: CarouselAPI, wheelRotation: number): void => {
+	function setContainerStyles(emblaApi: EmblaCarouselType, wheelRotation: number): void {
 		emblaApi.containerNode().style.transform = `translateZ(${WHEEL_RADIUS}px) rotateX(${wheelRotation}deg)`;
-	};
+	}
 
-	function inactivateEmblaTransform(emblaApi: CarouselAPI) {
+	function inactivateEmblaTransform(emblaApi: EmblaCarouselType) {
 		if (!emblaApi) return;
 		const { translate, slideLooper } = emblaApi.internalEngine();
 		translate.clear();
@@ -136,78 +147,113 @@
 		});
 	}
 
-	function rotateWheel(emblaApi: CarouselAPI) {
+	function rotateWheel(emblaApi: EmblaCarouselType) {
 		const rotation = formattedTimes.length * WHEEL_ITEM_RADIUS - rotationOffset;
 		const wheelRotation = rotation * emblaApi.scrollProgress();
 		setContainerStyles(emblaApi, wheelRotation);
 		emblaApi.slideNodes().forEach((_, index) => {
-			setSlideStyles(emblaApi, index, false, formattedTimes.length, totalRadius);
+			setSlideStyles(emblaApi, index, loop, formattedTimes.length, totalRadius);
 		});
 	}
 
-	$effect(() => {
-		if (!api) return;
+	onMount(() => {
+		emblaApi = EmblaCarousel(emblaNode, {
+			loop,
+			axis: 'y',
+			dragFree: true,
+			containScroll: false,
+			watchSlides: false
+		});
 
-		api.on('pointerUp', (emblaApi) => {
+		emblaApi.on('pointerUp', () => {
 			const { scrollTo, target, location } = emblaApi.internalEngine();
 			const diffToTarget = target.get() - location.get();
-			const factor = Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1;
+			const factor = Math.abs(diffToTarget) < wheelItemSize / 2.5 ? 10 : 0.1;
 			const distance = diffToTarget * factor;
 			scrollTo.distance(distance, true);
 		});
 
-		api.on('scroll', rotateWheel);
+		emblaApi.on('scroll', () => rotateWheel(emblaApi));
 
-		api.on('reInit', (emblaApi) => {
+		emblaApi.on('reInit', () => {
 			inactivateEmblaTransform(emblaApi);
 			rotateWheel(emblaApi);
 		});
 
-		inactivateEmblaTransform(api);
-		rotateWheel(api);
-	});
+		inactivateEmblaTransform(emblaApi);
+		rotateWheel(emblaApi);
 
-	const totalRadius = $derived(formattedTimes.length * WHEEL_ITEM_RADIUS);
-	const rotationOffset = WHEEL_ITEM_RADIUS;
+		return () => {
+			if (emblaApi) emblaApi.destroy();
+		};
+	});
 </script>
 
-<Carousel.Root
-	orientation="vertical"
-	class={cn('relative w-full select-none items-center overflow-hidden', className)}
-	setApi={(emblaApi) => (api = emblaApi)}
-	opts={{
-		dragFree: true,
-		containScroll: false,
-		watchSlides: false,
-		axis: 'y'
-	}}
-	style="perspective: 1000px;"
->
-	<Carousel.Content
-		class="h-full w-full"
-		style="transform-style: preserve-3d; will-change: transform;"
-	>
-		<div class="flex flex-col gap-2">
-			{#each formattedTimes as tz}
-				<Carousel.Item
-					class="min-w-max basis-1/3"
-					style="backface-visibility: hidden; opacity: 0; display: inline-block;"
-				>
-					<div
-						class="flex flex-row items-center justify-center gap-2 text-center text-base font-medium sm:flex-col sm:gap-0 sm:text-sm lg:flex-row lg:gap-2"
-					>
-						<p>
-							<span>{tz.hour}</span>
-							<span class="text-neutral-500">:</span>
-							<span>{tz.minute}</span>
-							<span class="text-neutral-500">:</span>
-							<span>{tz.second}</span>
-						</p>
-						<span class="block text-neutral-500 sm:hidden lg:block">{tz.code}</span>
-						<span class="hidden text-neutral-500 sm:block lg:hidden">{tz.name}</span>
-					</div>
-				</Carousel.Item>
-			{/each}
+<div class={cn('embla overflow-hidden', className)}>
+	<div class="flex min-w-[100%] items-center justify-center">
+		<div
+			class="flex h-full min-w-full touch-pan-x items-center overflow-hidden"
+			bind:this={rootNode}
+		>
+			<div class="h-[32px] w-full select-none" style="perspective: 1000px;" bind:this={emblaNode}>
+				<div class="h-full w-full" style="transform-style: preserve-3d; will-change: transform;">
+					{#each formattedTimes as tz, index (index)}
+						<div
+							class="flex h-full w-full items-center justify-center text-center opacity-0"
+							style="backface-visibility: hidden;"
+						>
+							<div
+								class="flex flex-row items-center justify-center gap-2 text-base font-medium sm:flex-col sm:gap-0 sm:text-sm lg:flex-row lg:gap-2"
+							>
+								<p class="grid grid-cols-5">
+									<span class="font-mono">{tz.hour}</span>
+									<span class="text-neutral-500">:</span>
+									<span class="font-mono">{tz.minute}</span>
+									<span class="text-neutral-500">:</span>
+									<span class="font-mono">{tz.second}</span>
+								</p>
+								<span class="block font-mono text-neutral-500 sm:hidden lg:block">{tz.code}</span>
+								<span class="hidden font-mono text-neutral-500 sm:block lg:hidden">{tz.name}</span>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
 		</div>
-	</Carousel.Content>
-</Carousel.Root>
+	</div>
+</div>
+
+<style>
+	.embla {
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+	.embla:before,
+	.embla:after {
+		position: absolute;
+		left: 0;
+		right: 0;
+		content: '';
+		display: block;
+		height: calc(50% - 32px / 2);
+		z-index: 1;
+		pointer-events: none;
+	}
+	.embla:before {
+		top: -0.5px;
+		background: linear-gradient(
+			to top,
+			hsl(var(--background) / 0) 0%,
+			hsl(var(--background) / 1) 100%
+		);
+	}
+	.embla:after {
+		bottom: -0.5px;
+		background: linear-gradient(
+			to bottom,
+			hsl(var(--background) / 0) 0%,
+			hsl(var(--background) / 1) 100%
+		);
+	}
+</style>

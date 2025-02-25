@@ -3,7 +3,7 @@
 	import Interactivity from './(components)/interactivity.svelte';
 	import Intro from './(components)/intro.svelte';
 	import Projects from './(components)/projects.svelte';
-	import Technologies from './(components)/technologies.svelte';
+	import { Technologies } from './(components)/technologies';
 </script>
 
 <div
@@ -18,7 +18,5 @@
 		<Projects />
 		<Separator />
 		<Interactivity />
-		<Separator />
-		<div class="h-[500px] w-full"></div>
 	</div>
 </div>
