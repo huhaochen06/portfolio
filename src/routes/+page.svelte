@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Separator } from '$lib/components/ui/separator';
-	import Education from './(components)/education.svelte';
+	import Interactivity from './(components)/interactivity.svelte';
 	import Intro from './(components)/intro.svelte';
 	import Projects from './(components)/projects.svelte';
 	import Technologies from './(components)/technologies.svelte';
@@ -17,7 +17,7 @@
 		<Separator />
 		<Projects />
 		<Separator />
-		<Education />
+		<Interactivity />
 		<Separator />
 		<div class="h-[500px] w-full"></div>
 	</div>
