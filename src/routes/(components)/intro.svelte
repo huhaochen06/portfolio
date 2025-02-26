@@ -6,9 +6,11 @@
 
 <div class="flex w-full items-center justify-between">
 	<div class="flex items-center justify-start gap-4">
-		<Avatar.Root class="relative h-16 w-16">
-			<Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-			<Avatar.Fallback>CN</Avatar.Fallback>
+		<Avatar.Root
+			class="relative h-16 w-16 border ring-1 ring-muted-foreground/50 ring-offset-2 ring-offset-background"
+		>
+			<Avatar.Image src="/avatar.webp" alt="@huhaochen06" />
+			<Avatar.Fallback>HC</Avatar.Fallback>
 		</Avatar.Root>
 		<div class="flex flex-col items-start justify-center">
 			<h1 class="font-medium">Hu HaoChen</h1>
@@ -42,6 +44,7 @@
 <style>
 	.highlight-paragraph {
 		transition: color 0.3s ease-in-out;
+		transition-delay: 0.2s;
 	}
 
 	.highlight-paragraph:hover {
@@ -52,6 +55,7 @@
 		position: relative;
 		display: inline-block;
 		transition: color 0.3s ease-in-out;
+		transition-delay: 0.2s;
 	}
 
 	.highlight-paragraph:hover .highlight-text {
@@ -72,19 +76,19 @@
 	}
 
 	.highlight-text:nth-child(1)::after {
-		transition-delay: 0s;
+		transition-delay: 0.2s;
 	}
 	.highlight-text:nth-child(2)::after {
-		transition-delay: 0.05s;
+		transition-delay: 0.25s;
 	}
 	.highlight-text:nth-child(3)::after {
-		transition-delay: 0.1s;
+		transition-delay: 0.3s;
 	}
 	.highlight-text:nth-child(4)::after {
-		transition-delay: 0.15s;
+		transition-delay: 0.35s;
 	}
 	.highlight-text:nth-child(5)::after {
-		transition-delay: 0.2s;
+		transition-delay: 0.4s;
 	}
 
 	.highlight-paragraph:hover .highlight-text::after {
