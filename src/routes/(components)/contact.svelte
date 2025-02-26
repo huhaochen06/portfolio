@@ -2,7 +2,7 @@
 	import { Button } from '$lib/components/ui/button';
 </script>
 
-<div class="-mt-4 flex w-full items-center justify-between">
+<div class="-mt-4 flex w-full flex-col justify-between sm:flex-row sm:items-center">
 	<div class="flex gap-2">
 		<Button
 			variant="link"
