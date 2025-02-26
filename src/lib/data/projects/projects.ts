@@ -3,7 +3,7 @@ export const projects = [
 		slug: 'qibaodian',
 		name: 'qibaodian (起爆点)',
 		description: 'SAAS platform for stock buying and selling signals prediction.',
-		type: 'internal',
+		type: 'external',
 		href: {
 			url: 'https://qibaodian.net',
 			type: 'external'
@@ -34,9 +34,9 @@ export const projects = [
 		slug: 'portfolio',
 		name: 'haochen.dev',
 		description: 'My personal portfolio website, sprinkled with some fun interactions.',
-		type: 'internal',
+		type: 'external',
 		href: {
-			url: 'https://github.com/huhaochen06/haochen.dev',
+			url: 'https://github.com/huhaochen06/portfolio',
 			type: 'github'
 		},
 		preview: {
@@ -56,7 +56,7 @@ export const projects = [
 		slug: 'njcso-tracker',
 		name: 'NJCSO Tracker',
 		description: 'A web app to track instruments in the NJCSO.',
-		type: 'internal',
+		type: 'external',
 		href: {
 			url: 'https://github.com/huhaochen06/njcso-tracker',
 			type: 'github'
@@ -78,7 +78,7 @@ export const projects = [
 		slug: 'ecoquest',
 		name: 'ecoQuest',
 		description: 'A mobile app built with Expo and React Native for BrainHack 2024.',
-		type: 'internal',
+		type: 'external',
 		href: {
 			url: 'https://github.com/Brainhack-please-no/ecoQuest-frontend',
 			type: 'github'
@@ -100,7 +100,7 @@ export const projects = [
 		slug: 'crayon-box-tournament',
 		name: 'Cranyon Box Tournament',
 		description: "A 2D platformer game built with Godot for Hack'n'Roll 2024.",
-		type: 'internal',
+		type: 'external',
 		href: {
 			url: 'https://github.com/huhaochen06/Crayon-Box-Tournament',
 			type: 'github'

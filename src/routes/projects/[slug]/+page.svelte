@@ -1,4 +1,3 @@
-<!-- This file renders each individual blog post for reading. Be sure to update the svelte:head below -->
 <script>
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
@@ -20,7 +19,7 @@
 				variant="link"
 				href="/projects"
 				target="_self"
-				class="flex items-center gap-1 rounded-full pr-2 text-neutral-500 outline-none ring-neutral-950 transition-colors duration-150 hover:text-neutral-800 focus-visible:ring-1 dark:ring-neutral-50 dark:hover:text-neutral-200"
+				class="-mt-1 flex items-center gap-1 rounded-full pr-2 pt-0"
 				aria-label="go to projects page"
 			>
 				<ArrowLeftIcon class="size-4"></ArrowLeftIcon>
@@ -32,16 +31,16 @@
 		>
 			<div class="grid w-full grid-cols-2">
 				<div class="flex flex-col gap-0.5">
-					<h1 class="w-full text-left font-medium text-neutral-700 dark:text-neutral-200">
+					<h1 class="w-full text-left font-medium">
 						{name}
 					</h1>
-					<p class="text-sm text-neutral-500">
+					<p class="text-sm text-muted-foreground/80">
 						{date}
 					</p>
 				</div>
 				<div class="flex items-center justify-end">
 					<Button variant="outline" class="rounded-full" href={href.url} target="_blank">
-						Visit
+						{href.type === 'github' ? 'GitHub' : 'Visit'}
 						<ExternalLink class="size-4" />
 					</Button>
 				</div>
@@ -71,7 +70,7 @@
 			</div>
 
 			<div class="flex w-full flex-col items-start justify-start gap-2">
-				<h2 class="text-sm text-neutral-500 dark:text-neutral-400">Tech Stack</h2>
+				<h2 class="text-sm text-muted-foreground/80">Tech Stack</h2>
 				<div class="flex w-full flex-wrap items-center justify-start gap-2">
 					{#each technologies as technology}
 						<Badge variant="secondary" class="font-mono font-normal text-muted-foreground">
