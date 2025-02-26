@@ -7,7 +7,7 @@
 
 	let { data } = $props();
 
-	const { name, description, date, preview, technologies, href } = data.meta;
+	const { name, date, preview, technologies, href } = data.meta;
 	const { PostContent, previousProject, nextProject } = data;
 </script>
 

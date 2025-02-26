@@ -4,10 +4,12 @@
 	import { DownloadIcon } from 'lucide-svelte';
 </script>
 
-<div class="flex w-full items-center justify-between">
+<div
+	class="flex w-full items-center justify-between duration-500 animate-in fade-in zoom-in-95 slide-in-from-bottom-2"
+>
 	<div class="flex items-center justify-start gap-4">
 		<Avatar.Root
-			class="relative h-16 w-16 border ring-1 ring-muted-foreground/50 ring-offset-2 ring-offset-background"
+			class="relative h-16 w-16 border ring-1 ring-muted-foreground/50 ring-offset-2 ring-offset-background "
 		>
 			<Avatar.Image src="/avatar.webp" alt="@huhaochen06" />
 			<Avatar.Fallback>HC</Avatar.Fallback>
