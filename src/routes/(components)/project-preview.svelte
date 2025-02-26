@@ -11,8 +11,6 @@
 		height: preview.base.height
 	};
 
-	let externalIcon = $derived.by(() => !(project.type === 'internal' || project.mdx));
-
 	const { placeholder, src } = preview.base;
 
 	let videoElement = $state();
@@ -72,9 +70,6 @@
 							class="z-40 flex items-center justify-start gap-1 text-xs text-neutral-300 sm:text-sm"
 						>
 							<span>{name}</span>
-							{#if externalIcon}
-								<ExternalIcon />
-							{/if}
 						</div>
 						<p class="z-40 text-xs text-neutral-400 sm:text-sm">
 							{date}
