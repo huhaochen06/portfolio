@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Optimize crawling rate
+Crawl-delay: 10
 
 Sitemap: https://haochen.dev/sitemap.xml
 Host: https://haochen.dev

@@ -44,6 +44,7 @@
 				src="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=480,format=webp/{image.name}"
 				srcset="https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=960,format=webp/{image.name} 2x,
                 https://cdn.haochen.dev/cdn-cgi/image/fit=contain,width=1440,format=webp/{image.name} 3x"
+				loading="lazy"
 				alt={`${image.name}`}
 				class="h-full w-full bg-muted object-cover"
 				style="aspect-ratio: {image.width} / {image.height}"
