@@ -98,7 +98,7 @@ export const projects = [
 	},
 	{
 		slug: 'crayon-box-tournament',
-		name: 'Cranyon Box Tournament',
+		name: 'Crayon Box Tournament',
 		description: "A 2D platformer game built with Godot for Hack'n'Roll 2024.",
 		type: 'external',
 		href: {
