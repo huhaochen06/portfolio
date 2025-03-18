@@ -20,7 +20,7 @@
 	<div class="flex items-center justify-end">
 		<Button
 			variant="outline"
-			href="/resume.pdf"
+			href="/Hu HaoChen Resume.pdf"
 			class="rounded-full"
 			target="_blank"
 			aria-label="download resume"
