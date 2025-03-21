@@ -1,11 +1,11 @@
-In a 24-hour challenge at Hack&Roll 2024, my team of four dove headfirst into game development—despite none of us having prior experience.
+At [Hack&Roll 2024](https://hacknroll2024.devpost.com/), my team embraced a challenge none of us was prepared for - creating a video game from scratch in just 24 hours, despite our collective inexperience in game development.
 
-We created a unique 2D platformer that pits two players against each other in an exciting game of cat and mouse. One player controls a 'box' trying to reach the finish line, while the other wields a 'crayon' to draw obstacles and prevent the box's progress.
+The result? A fast-paced 2D platformer that brings a fresh twist to the traditional cat-and-mouse dynamic. In Crayon Box Tournament, two players engage in a battle of wits and reflexes. One controls a nimble "box" character racing toward the finish line, while the other wields a digital "crayon" to strategically draw obstacles, turning the level itself into a weapon.
 
-The box player uses WASD keys for movement and has access to special abilities: a dash move and a temporary phase ability that allows passing through crayon-drawn obstacles.
+Box players navigate using WASD controls and have access to two game-changing abilities—a quick dash to gain momentum and a limited-duration phase shift that allows them to temporarily pass through drawn obstacles. This creates moments of genuine tension as players calculate the perfect time to use these powers.
 
-The crayon player uses the mouse to strategically draw lines across the level, creating barriers to impede the box's progress.
+Meanwhile, crayon players become level designers on the fly, using mouse controls to craft barriers and traps. The freedom to draw anywhere enables creative strategies that evolve throughout each match, making every playthrough unique.
 
-The game unfolds over three rounds, with players swapping roles between box and crayon. After each round, the losing player gets to choose a random powerup to even the odds. Victory goes to the first player to win three rounds.
+We designed a best-of-three format where players swap roles after each round, ensuring a balanced experience that tests skills from both perspectives. The clever comeback mechanic gives the losing player a random powerup selection after each round, creating dramatic reversals and keeping matches competitive until the final moment.
 
-The game was created using Godot, a free and open-source game engine.
+The entire project was built using Godot, an open-source game engine that proved surprisingly accessible for our team of first-time game developers. What began as an intimidating challenge transformed into one of the most rewarding creative experiences of our programming careers.

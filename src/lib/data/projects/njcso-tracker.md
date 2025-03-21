@@ -1,25 +1,33 @@
-As an executive member of the National Junior College Strings Orchestra (NJCSO), I was responsible for managing the orchestra's instrument inventory. With a collection of over 30 instruments, tracking their whereabouts and managing student borrowing had become increasingly challenging.
+<script lang="ts">
+	import Media from '$lib/components/media.svelte';
+</script>
 
-I developed a solution that would streamline the instrument check-in/out process, providing clear visibility of which instruments were in storage and which were currently with students.
+During my time as an executive member of the National Junior College Strings Orchestra (NJCSO), I faced a significant operational challenge: managing our growing collection of over 30 instruments. Keeping track of which instruments were in storage versus which were checked out to students had become a logistical headache that consumed valuable time and created unnecessary confusion.
 
-To ensure accessibility and ease of use, I created a web application that could be accessed by all orchestra members. The system implements a QR code-based verification process - students must scan instrument-specific QR codes and their designated storage zones using their phone cameras, ensuring physical presence during the check-in/out process.
+I developed a streamlined web application that transformed our inventory management process. The solution combines simplicity with modern technology to provide real-time visibility into our instrument collection's status.
 
-<figure>
-  <img src="/projects/njcso-tracker-1.png" alt="Logs generated and saved to Google Sheet">
-  <figcaption>Logs generated and saved to Google Sheet</figcaption>
-</figure>
+<Media
+	src="/projects/njcso-tracker-1.png"
+	alt="Logs generated and saved to Google Sheet"
+	caption="Logs generated and saved to Google Sheet"
+/>
 
-To maintain simplicity for non-technical users while leveraging modern technology, I chose Google Sheets as the backend database. This familiar interface allows easy access to inventory status and transaction logs, while the web application automatically updates the spreadsheet with new check-in/out records and retrieves real-time inventory data.
+The system's elegant QR code verification process ensures accountability and accuracy. When checking instruments in or out, orchestra members scan both the instrument's unique QR code and the storage zone's code using their smartphone cameras. This dual verification confirms physical presence and prevents unauthorized access or misplaced instruments.
 
-<figure>
-  <img src="/projects/njcso-tracker-2.png" alt="Loan status and whereabouts of instruments">
-  <figcaption>Loan status and whereabouts of instruments</figcaption>
-</figure>
+For the backend, I deliberately chose Google Sheets instead of a traditional database. This decision made the system immediately accessible to our less tech-savvy users while still providing robust data management. Orchestra administrators can view inventory status and borrowing history through a familiar interface, while the web application handles all the technical aspects of updating records and retrieving data.
 
-Flow of the check-in/out process:
+<Media
+	src="/projects/njcso-tracker-2.png"
+	alt="Loan status and whereabouts of instruments"
+	caption="Loan status and whereabouts of instruments"
+/>
 
-1. Student scans the QR code of the instrument they wish to borrow.
-2. The system verifies the instrument's status.
-3. The student is prompted to scan the QR code of the storage zone.
-4. The system verifies the storage zone's status.
-5. The system updates the inventory status and the transaction log.
+The borrowing process unfolds seamlessly:
+
+1. A student scans the desired instrument's QR code
+2. The system instantly verifies availability
+3. After confirmation, they scan the storage zone's QR code
+4. The system cross-references location data
+5. Transaction details are automatically logged and inventory status updates in real-time
+
+This project dramatically improved our orchestra's operational efficiency while providing a practical education in developing user-centered solutions with the right balance of technology and accessibility.

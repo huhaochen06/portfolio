@@ -2,7 +2,7 @@ export const projects = [
 	{
 		slug: 'qibaodian',
 		name: 'qibaodian (起爆点)',
-		description: 'SAAS platform for stock buying and selling signals prediction.',
+		description: 'SAAS platform for stock buy and sell signals prediction.',
 		type: 'external',
 		href: {
 			url: 'https://qibaodian.net',

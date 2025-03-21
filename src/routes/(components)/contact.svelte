@@ -25,5 +25,5 @@
 			LinkedIn
 		</Button>
 	</div>
-	<span class="text-sm text-muted-foreground">Built with ❤️ using SvelteKit</span>
+	<span class="text-sm text-muted-foreground">Last updated: Mar 20, 2025</span>
 </div>

@@ -81,9 +81,7 @@
 			</div>
 			{#if PostContent}
 				<Separator />
-				<div
-					class="prose prose-neutral w-full dark:prose-invert prose-figcaption:text-center prose-img:rounded-lg prose-img:border"
-				>
+				<div class="prose prose-neutral w-full dark:prose-invert">
 					<PostContent />
 				</div>
 			{/if}
